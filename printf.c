@@ -9,10 +9,11 @@
 int _printf(const char *format, ...)
 {
 	va_list args;
+	int c_count;
 
 	va_start(args, format);
 
-	int c_count = 0;
+	c_count = 0;
 
 	while (*format)
 	{
@@ -25,7 +26,7 @@ int _printf(const char *format, ...)
 				c_count += printf("%s", va_arg(args, char *));
 				break;
 			case 'c':
-				c_count += printf("%c", va_arg(args, int))
+				c_count += printf("%c", va_arg(args, int));
 				break;
 			case 'x':
 				c_count += printf("%x", va_arg(args, unsigned int));
@@ -34,7 +35,7 @@ int _printf(const char *format, ...)
 				c_count += printf("%d", va_arg(args, int));
 				break;
 			default:
-				count += printf("%%");
+				c_count += printf("%%");
 				break;
 			}
 		}
@@ -43,4 +44,7 @@ int _printf(const char *format, ...)
 			c_count += printf("%c", *format);
 		}
 		format++;
+	}
+	va_end(args);
+	return (c_count);
 }
